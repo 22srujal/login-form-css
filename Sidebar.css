@@ -1,0 +1,95 @@
+/* Sidebar.css */
+
+.sidebar{
+    border-radius: 10px;
+    width: 200px;
+    padding: 8px;
+    background: rgb(255 255 255 / 4%);
+    backdrop-filter: blur(10px);
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap:9px;
+    height: 56px;
+    padding-bottom: 8px;
+    font-size:16px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+button,
+button span,
+.block {
+    transition: 0.3s;
+}
+
+.sidebar button {
+    background: transparent;
+    color: inherit;
+    border: 0;
+    border-radius: 12px;
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.75;
+}
+
+.sidebar button:hover {
+    opacity: 1;
+}
+
+.sidebar button
+span:first-child {
+    color: #a0a0b8;
+}
+
+.sidebar button
+span:nth-child(3) {
+    margin-left: auto;
+    rotate: 90deg;
+}
+
+.block.open button
+span:nth-child(3) {
+    rotate: 0deg;
+}
+
+.blocks { display:grid; gap: 8px;}
+
+.block {
+    overflow: hidden;
+    position: relative;
+    border-radius: 12px;
+    background: rgb(255 255 255 / 3%);
+}
+
+.block.open,
+.block:hover {
+    background: rgb(255 255 255 / 6%);
+}
+
+.block-inner {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s;
+}
+
+.block-items button{
+    border-radius: 0;
+    opacity: 0.55;
+}
+
+.block-items button:hover {
+    opacity: 1;
+    background: rgb(255 255 255 / 3%);
+}

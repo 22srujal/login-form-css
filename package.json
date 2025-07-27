@@ -1,0 +1,13 @@
+{
+  "name": "login-form-css",
+  "version": "1.0.0",
+  "description": "Login form and sidebar components",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx live-server --port=3000",
+    "dev": "npx live-server --port=3000 --open=sidebar-demo.html"
+  },
+  "keywords": ["html", "css", "react", "sidebar", "login"],
+  "author": "Srujal",
+  "license": "MIT"
+}

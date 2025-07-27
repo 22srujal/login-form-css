@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Demo</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./Sidebar.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
+        
+        .demo-container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        
+        .sidebar-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>React Sidebar Component Demo</h1>
+    <button class="sidebar-toggle" onclick="toggleSidebar()">Toggle Sidebar</button>
+    
+    <div class="demo-container">
+        <div id="sidebar-root"></div>
+        <div>
+            <h3>Your Sidebar Component Features:</h3>
+            <ul>
+                <li>✅ Collapsible blocks</li>
+                <li>✅ Material Icons</li>
+                <li>✅ Smooth animations</li>
+                <li>✅ Hover effects</li>
+                <li>✅ Glass morphism design</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- React CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const { useState, useRef } = React;
+
+        const blocks = [
+            {
+                name: "Hosting",
+                icon: "storage",
+                items: [
+                    {name: "API Keys", icon: "key"},
+                    {name: "Domains", icon: "domain"},
+                    {name: "SSL Certificates", icon: "security"},
+                ],
+            },
+            {
+                name: "Database",
+                icon: "storage",
+                items: [
+                    {name: "MySQL", icon: "storage"},
+                    {name: "PostgreSQL", icon: "storage"},
+                    {name: "MongoDB", icon: "storage"},
+                ],
+            },
+            {
+                name: "Analytics",
+                icon: "analytics",
+                items: [
+                    {name: "Traffic", icon: "trending_up"},
+                    {name: "Users", icon: "people"},
+                    {name: "Performance", icon: "speed"},
+                ],
+            },
+        ];
+
+        const Icon = ({children}) => (
+            <span className="material-icons">
+                {children}
+            </span>
+        );
+
+        const Button = ({name, icon, isOpen, hasToggle, onClick}) => (
+            <button type="button" onClick={onClick}>
+                <Icon>{icon}</Icon>
+                <p>{name}</p>
+                {hasToggle &&
+                    <Icon>{isOpen ? "remove": "add"}</Icon>
+                }
+            </button>
+        );
+
+        const Block = ({name, icon, items}) => {
+            const [isOpen, setIsOpen] = useState(false);
+            const itemsRef = useRef();
+            
+            return (
+                <li className={`block ${isOpen ? "open" : ""}`}>
+                    <Button
+                        name={name}
+                        icon={icon}
+                        isOpen={isOpen}
+                        hasToggle={true}
+                        onClick={() => setIsOpen(!isOpen)}
+                    />
+                    <div
+                        className="block-inner"
+                        style={{
+                            height: isOpen && itemsRef.current
+                                ? itemsRef.current.scrollHeight
+                                : 0
+                        }}
+                    >
+                        <ul className="block-items" ref={itemsRef}>
+                            {items.map((item, index) => (
+                                <li key={index}>
+                                    <Button
+                                        name={item.name} 
+                                        icon={item.icon} 
+                                    />
+                                </li>
+                            ))}
+                        </ul>                
+                    </div>
+                </li>
+            );
+        };
+
+        const Sidebar = () => {
+            const [isOpen, setIsOpen] = useState(true);
+            
+            return (
+                <aside className={`sidebar ${isOpen ? "open" : ""}`}>
+                    <h2 className="header">
+                        <Icon>settings</Icon>
+                        <span>Settings</span>
+                    </h2>
+                    <ul className="blocks">
+                        {blocks.map((block, index) => (
+                            <Block
+                                key={index}
+                                name={block.name}
+                                icon={block.icon}
+                                items={block.items}
+                            />
+                        ))}
+                    </ul>
+                </aside>
+            );
+        };
+
+        // Render the component
+        ReactDOM.render(<Sidebar />, document.getElementById('sidebar-root'));
+
+        // Toggle function for demo
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
